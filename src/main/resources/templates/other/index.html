@@ -21,7 +21,7 @@
 				場合のみこのdivタグが表示される。
 				*/-->
 				<div class="border p-1 m-1" th:if="${item.length() <= 20}">
-					<p>
+					<p th:classappend="${stat.even} ? text-primary : text-success">
 						<!--/* th:eachのステータスを参照 */-->
 						<span th:text="${stat.index}">1</span>番目の要素
 					</p>
