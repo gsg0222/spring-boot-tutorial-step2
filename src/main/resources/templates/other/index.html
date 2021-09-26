@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>色々説明</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<main class="container">
+		<section class="border p-1 m-1">
+			<h2>th:eachとth:if, th:utextのサンプル</h2>
+			<!--/*
+			th:each属性でListの繰り返しを行う。
+			statは省略可能。
+			*/-->
+			<th:block th:each="item, stat:${forEach}">
+				<!--/*
+				th:ifで条件判定。文字列の長さが20文字以下の
+				場合のみこのdivタグが表示される。
+				*/-->
+				<div class="border p-1 m-1" th:if="${item.length() <= 20}">
+					<p>
+						<!--/* th:eachのステータスを参照 */-->
+						<span th:text="${stat.index}">1</span>番目の要素
+					</p>
+					<!--/*
+					th:textを使うと文字列はサニタイズされる。
+					th:utextはサニタイズされない。
+					*/-->
+					<p>
+						th:textの場合：<span th:text="${item}">ダミー</span>
+					</p>
+					<p>
+						th:utextの場合：<span th:utext="${item}">ダミー</span>
+					</p>
+				</div>
+			</th:block>
+		</section>
+		<section class="border p-1 m-1">
+			<h2>th:unlessのサンプル</h2>
+			<!--/* th:ifはnullの場合はfalse、それ以外の場合trueと判定される。 */-->
+			<p th:if="${nullValue}">th:ifがnullの場合</p>
+			<p th:if="${nonNullValue}">th:ifが"notNull"の場合</p>
+			<!--/* th:unlessはth:ifの反対。falseだと表示される。 */-->
+			<p th:unless="${nullValue}">th:unlessがnullの場合</p>
+			<p th:unless="${nonNullValue}">th:unlessが"notNull"の場合</p>
+		</section>
+	</main>
+</body>
+</html>

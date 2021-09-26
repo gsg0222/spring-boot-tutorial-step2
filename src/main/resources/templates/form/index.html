@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Formに初期値設定</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<main class="container">
+		<!--/* フォームの説明の前にコメントのテスト */-->
+		<!-- <span th:text="test">Thymeleafとして解釈されないがソースに表示される</span> -->
+		<!--/* <span th:text="test">こちらは解釈もされず表示もされない</span> */-->
+		<h1>フォームに初期値設定</h1>
+		<section class="border p-1 mb-3">
+			<h2>th:objectを利用</h2>
+			<!--/*
+			th:objectでフォームオブジェクトを指定する方法。
+			この方法がメジャーでだいたいどこでもこっちを説明している。
+			 */-->
+			<form method="post" th:action="@{/form/input}"
+				th:object="${testForm}">
+				<div class="mb-3">
+					<!--/*
+					th:objectで指定したオブジェクトのフィールドを*{フィールド名}という形でth:fieldに指定。
+					th:fieldはid, name, valueをまとめて設定してくれる。
+					*/-->
+					<label for="text" class="form-label">テキスト</label> <input
+						type="text" class="form-control" th:field="*{text}">
+				</div>
+				<div class="mb-3">
+					<label for="textBox" class="form-label">テキストエリア</label>
+					<textarea class="form-control" th:field="*{textarea}"></textarea>
+				</div>
+				<div class="mb-3">
+					<!--/*
+					セレクトの場合はth:fieldを指定するとちゃんと
+					対応するオプションを初期選択してくれる。
+					*/-->
+					<label for="select" class="form-label">セレクト</label> <select
+						th:field="*{select}" class="form-control">
+						<option value="1">オプション1</option>
+						<option value="2">オプション2</option>
+						<option value="3">オプション3</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="radio" class="form-label">ラジオボタン</label> <input
+						type="radio" th:field="*{radio}" value="radioTest"> <input
+						type="radio" th:field="*{radio}" value="radioTest2">
+				</div>
+				<div class="mb-3">
+					<label for="checkBox" class="form-label">チェックボックス</label> <input
+						type="checkbox" th:field="*{checkBox}" value="one">
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">送信</button>
+				</div>
+
+
+			</form>
+		</section>
+		<section class="border p-1 mb-3">
+		<h2>直接変数名を指定</h2>
+			<!--/*
+			th:objectを利用しないで、変数名を利用する方法。こっちでも同じことができる。
+			 */-->
+			<form method="post" th:action="@{/form/input}">
+				<div class="mb-3">
+					<label for="text" class="form-label">テキスト</label> <input
+						type="text" class="form-control" th:field="${testForm.text}">
+				</div>
+				<div class="mb-3">
+					<label for="textBox" class="form-label">テキストエリア</label>
+					<textarea class="form-control" th:field="${testForm.textarea}"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="select" class="form-label">セレクト</label> <select
+						th:field="${testForm.select}" class="form-control">
+						<option value="1">オプション1</option>
+						<option value="2">オプション2</option>
+						<option value="3">オプション3</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="radio" class="form-label">ラジオボタン</label> <input
+						type="radio" th:field="${testForm.radio}" value="radioTest"> <input
+						type="radio" th:field="${testForm.radio}" value="radioTest2">
+				</div>
+				<div class="mb-3">
+					<label for="checkBox" class="form-label">チェックボックス</label> <input
+						type="checkbox" th:field="${testForm.checkBox}" value="one">
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">送信</button>
+				</div>
+
+
+			</form>
+		</section>
+	</main>
+</body>
+</html>
